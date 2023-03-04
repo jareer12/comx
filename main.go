@@ -16,8 +16,8 @@ func main() {
 		Commands: []*cli.Command{
 			{
 				Name:    "initialize",
-				Aliases: []string{"init"},
-				Usage:   "Setup a new C/C++ project.",
+				Aliases: []string{"init", "new"},
+				Usage:   "Initialize a new C/C++ project.",
 				Action:  handlers.InitHandle,
 				Flags: []cli.Flag{
 					&cli.StringFlag{

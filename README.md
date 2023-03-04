@@ -4,16 +4,13 @@ ComX is a lightweight and user-friendly command-line interface (CLI) tool for ma
 
 ## Features
 
-- Create new C projects with ease
-- Add and manage source code files
-- Compile C projects using simple commands
 - Lightweight and easy to use
 
 ## Installation
 
 ComX is currently available as a standalone binary. To install it on your system, follow these steps:
 
-1. Download the latest release from the [ComX GitHub repository](https://github.com/jareer12/comx/releases).
+1. Download the latest release from the [GitHub repository](https://github.com/jareer12/comx/releases).
 2. Extract the `comx` binary file from the downloaded archive.
 3. Copy the `comx` binary to a location in your system's PATH, such as `/usr/local/bin`.
 

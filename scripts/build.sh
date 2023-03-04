@@ -1,6 +1,6 @@
 ## Variables
-NAME=cpm
 DIR=bin
+NAME=comx
 LD_FLAGS='-s'
 
 ## Create the target directory if does't exist

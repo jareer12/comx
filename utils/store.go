@@ -10,6 +10,7 @@ const (
 )
 
 type StoreStruct struct {
+	ProjectName      string
 	ProjectLang      string
 	SelectedCompiler string
 	Compilers        []string
