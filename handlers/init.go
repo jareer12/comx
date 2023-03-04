@@ -30,7 +30,7 @@ func CreateMain(file_ext string, proj_name string, def_code string, proj_lang st
 		return cd_err
 	}
 
-	f_err := os.WriteFile(fmt.Sprintf(fmt.Sprintf("./%v/%v", main_dir, main_file), file_ext), []byte(def_code), os.ModePerm)
+	f_err := os.WriteFile(fmt.Sprintf("./%s/%s", main_dir, main_file), []byte(def_code), os.ModePerm)
 
 	if f_err != nil {
 		return f_err
@@ -40,6 +40,8 @@ func CreateMain(file_ext string, proj_name string, def_code string, proj_lang st
 		Compilers:   []string{},
 		ProjectLang: proj_lang,
 		ProjectName: proj_name,
+		MainFile:    main_file,
+		MainDir:     main_dir,
 	})
 
 	if c_err != nil {
@@ -94,10 +96,7 @@ func InitHandle(cCtx *cli.Context) error {
 	}
 
 	mf := cCtx.String("main_file")
-	println(mf)
-
 	md := cCtx.String("main_dir")
-	println(md)
 
 	if len(mf) > 0 {
 		main_file = mf
