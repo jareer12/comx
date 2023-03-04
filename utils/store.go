@@ -10,7 +10,8 @@ const (
 )
 
 type StoreStruct struct {
-	Compilers []string
+	Compilers        []string
+	SelectedCompiler string
 }
 
 func StoreContents() (StoreStruct, error) {
