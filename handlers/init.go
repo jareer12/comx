@@ -3,6 +3,7 @@ package handlers
 import (
 	"fmt"
 	"os"
+	"strings"
 	"time"
 
 	"cli/utils"
@@ -35,7 +36,8 @@ func CreateMain(file_ext string, def_code string) error {
 	}
 
 	def_conf, c_err := utils.StoreToText(utils.StoreStruct{
-		Compilers: []string{},
+		Compilers:   []string{},
+		ProjectLang: file_ext,
 	})
 
 	if c_err != nil {
@@ -51,8 +53,31 @@ func CreateMain(file_ext string, def_code string) error {
 	return nil
 }
 
+func ProjectExists() bool {
+	// Check if a project already exists in the target dir
+	// Check for config file
+
+	if _, err := os.ReadFile(utils.StorePath); err == nil {
+		return true
+	} else {
+		return false
+	}
+}
+
 func InitHandle(cCtx *cli.Context) error {
 	proj_lang := cCtx.Args().Get(0)
+
+	if ProjectExists() {
+		config, err := utils.StoreContents()
+
+		if err != nil {
+			utils.PrintError("Prohect seems to be corrupted")
+			return nil
+		}
+
+		utils.PrintError(fmt.Sprintf("A '%v' project already exists in the mentioned directory.", strings.ToUpper(config.ProjectLang)))
+		return nil
+	}
 
 	switch proj_lang {
 	case "c":
@@ -63,7 +88,7 @@ func InitHandle(cCtx *cli.Context) error {
 		{
 			start := time.Now().UnixMicro()
 			CreateMain(proj_lang, DefaultCppCode)
-			utils.PrintSuccess(fmt.Sprintf("Successfuly created project, elapsed %vms.", (time.Now().UnixMicro()-start)/1000))
+			utils.PrintSuccess(fmt.Sprintf("Successfuly created new C++ project, elapsed %vms.", (time.Now().UnixMicro()-start)/1000))
 		}
 	default:
 		{

@@ -18,30 +18,30 @@ func main() {
 				Name:    "initialize",
 				Aliases: []string{"init"},
 				Usage:   "Setup a new C/C++ project.",
+				Action:  handlers.InitHandle,
 				Flags: []cli.Flag{
 					&cli.StringFlag{
 						Name:  "lang",
 						Usage: "Select project language, '--lang=c' or '--lang=cpp'.",
 					},
 				},
-				Action: handlers.InitHandle,
 			},
 			{
 				Name:    "header",
 				Aliases: []string{"h"},
-				Usage:   "Create a new header file for a project.",
 				Action:  handlers.NewHeaderHandler,
+				Usage:   "Create a new header file for a project.",
 			},
 			{
-				Name:    "find-compilers",
 				Aliases: []string{"fc"},
-				Usage:   "Search your machine for possible GNU compilers.",
+				Name:    "find-compilers",
 				Action:  handlers.FindCompilersHandle,
+				Usage:   "Search your machine for possible GNU compilers.",
 			}, {
 				Name:    "list-compilers",
+				Action:  handlers.ListCompilers,
 				Aliases: []string{"compilers", "lc"},
 				Usage:   "List all founded compilers.",
-				Action:  handlers.ListCompilers,
 			},
 		},
 	}

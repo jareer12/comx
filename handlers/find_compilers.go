@@ -19,7 +19,7 @@ func AddCompiler(path string, ys utils.StoreStruct) utils.StoreStruct {
 	return ys
 }
 
-func FindCompilersHandle(cCtx *cli.Context) error {
+func FindCompilersHandle(_ *cli.Context) error {
 	envs := os.Environ()
 	os_name := runtime.GOOS
 

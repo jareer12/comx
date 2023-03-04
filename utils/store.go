@@ -12,6 +12,7 @@ const (
 type StoreStruct struct {
 	Compilers        []string
 	SelectedCompiler string
+	ProjectLang      string
 }
 
 func StoreContents() (StoreStruct, error) {
