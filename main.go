@@ -32,6 +32,12 @@ func main() {
 				Usage:   "Create a new header file for a project.",
 				Action:  handlers.NewHeaderHandler,
 			},
+			{
+				Name:    "find-compilers",
+				Aliases: []string{"fc"},
+				Usage:   "Search your machine for possible GNU compilers.",
+				Action:  handlers.FindCompilersHandle,
+			},
 		},
 	}
 
