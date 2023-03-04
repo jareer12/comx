@@ -48,10 +48,10 @@ func BuildHandler(cCtx *cli.Context) error {
 			return nil
 		}
 
-		build_cmd := fmt.Sprintf("%v %v/%s/%s", compiler, cwd, main_dir, main_file)
-		utils.PrintSuccess(fmt.Sprintf("Building using command: %v", build_cmd))
+		build_path := fmt.Sprintf("%v/%s/%s", cwd, main_dir, main_file)
+		utils.PrintSuccess(fmt.Sprintf("Building using command: %v %v", compiler, build_path))
 
-		cmd := exec.Command(build_cmd)
+		cmd := exec.Command(compiler, build_path)
 		err := cmd.Run()
 
 		if err != nil {

@@ -27,4 +27,4 @@ comx init app
 
 ## Building From Source
 
-Clone this repository and run the `./scripts/build.sh` file, do not use `sudo` as it might not work. If an error is thrown anyways run `sudo chmod -R 777 ./*`
+Clone this repository and run the `./scripts/build.sh` file, do not use `sudo` as it might not work. If an error is thrown anyways, run `sudo chmod -R 777 ./*`
