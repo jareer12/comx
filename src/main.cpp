@@ -1,7 +1,6 @@
 #include <iostream>
 
-int main()
-{
-	// ---snip---
-	return 0;
+int main() {
+  // ---snip---
+  return 0;
 }

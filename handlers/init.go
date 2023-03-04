@@ -28,6 +28,20 @@ func CreateMain(file_ext string, def_code string) error {
 		return f_err
 	}
 
+	def_conf, c_err := utils.EncodeStore(utils.YamlStore{
+		Compilers: []string{},
+	})
+
+	if c_err != nil {
+		return c_err
+	}
+
+	fc_err := os.WriteFile("./config.yaml", []byte(def_conf), os.ModePerm)
+
+	if fc_err != nil {
+		return fc_err
+	}
+
 	return nil
 }
 
