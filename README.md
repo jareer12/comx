@@ -13,7 +13,7 @@ ComX is currently available as a standalone binary. To install it on your system
 
 1. Download the latest release from the [GitHub repository](https://github.com/jareer12/comx/releases).
 2. Extract the `comx` binary file from the downloaded archive.
-3. Copy the `comx` binary to a location in your system's PATH, such as `/usr/local/bin`.
+3. Copy the `comx` binary to a location in your system's PATH, such as `/usr/local/bin`. Rename it to `comx` for convenient use.
 
 ## Usage
 
@@ -27,4 +27,4 @@ comx init app
 
 ## Building From Source
 
-Clone this repository and run the `./scripts/build.sh` file, do not use `sudo` as it might not work. If an error is thrown anyways, run `sudo chmod -R 777 ./*`
+Clone this repository and run the `./scripts/build.sh` file, do not use `sudo` as it might not work. If an error is thrown anyways, run `sudo chmod -R 777 ./*`.
