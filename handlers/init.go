@@ -77,7 +77,6 @@ func InitHandle(cCtx *cli.Context) error {
 	}
 
 	proj_name := cCtx.Args().Get(0)
-
 	prompt := promptui.Select{
 		Label: "Please select project base language",
 		Items: []string{"cpp", "c"},

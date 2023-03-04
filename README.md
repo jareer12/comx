@@ -23,3 +23,12 @@ To create a new C project with ComX, simply run the following command:
 ## comx init <project-name>
 comx init app
 ```
+
+
+## Building From Source
+
+Clone this repository and run the `./scripts/build.sh` file.
+
+```sh
+time ./scripts/build.sh
+```
