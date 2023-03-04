@@ -17,8 +17,8 @@ const (
 	DefaultCppCode = "#include <iostream>\n\nint main() {\n  // ---snip---\n  return 0;\n}"
 )
 
-func CreateMain(file_ext string, proj_name string, def_code string, proj_lang string) error {
-	err := os.Mkdir("./src", os.ModePerm)
+func CreateMain(file_ext string, proj_name string, def_code string, proj_lang string, main_file string, main_dir string) error {
+	err := os.Mkdir(fmt.Sprintf("./%v", main_dir), os.ModePerm)
 
 	if err != nil {
 		return err
@@ -30,7 +30,7 @@ func CreateMain(file_ext string, proj_name string, def_code string, proj_lang st
 		return cd_err
 	}
 
-	f_err := os.WriteFile(fmt.Sprintf("./src/main.%v", file_ext), []byte(def_code), os.ModePerm)
+	f_err := os.WriteFile(fmt.Sprintf(fmt.Sprintf("./%v/%v", main_dir, main_file), file_ext), []byte(def_code), os.ModePerm)
 
 	if f_err != nil {
 		return f_err
@@ -76,6 +76,9 @@ func InitHandle(cCtx *cli.Context) error {
 		return nil
 	}
 
+	var main_file string
+	var main_dir string
+
 	proj_name := cCtx.Args().Get(0)
 	prompt := promptui.Select{
 		Label:        "Please select project base language",
@@ -90,15 +93,33 @@ func InitHandle(cCtx *cli.Context) error {
 		return nil
 	}
 
+	mf := cCtx.String("main_file")
+	println(mf)
+
+	md := cCtx.String("main_dir")
+	println(md)
+
+	if len(mf) > 0 {
+		main_file = mf
+	} else {
+		main_file = fmt.Sprintf("main.%v", proj_lang)
+	}
+
+	if len(md) > 0 {
+		main_dir = md
+	} else {
+		main_dir = "src"
+	}
+
 	switch proj_lang {
 	case "c":
 		{
-			CreateMain(proj_lang, proj_name, DefaultCode, "C")
+			CreateMain(proj_lang, proj_name, DefaultCode, "C", main_file, main_dir)
 		}
 	case "cpp":
 		{
 			start := time.Now().UnixMicro()
-			CreateMain(proj_lang, proj_name, DefaultCppCode, "C++")
+			CreateMain(proj_lang, proj_name, DefaultCppCode, "C++", main_file, main_dir)
 			utils.PrintSuccess(fmt.Sprintf("Successfuly created new C++ project, elapsed %vms.", (time.Now().UnixMicro()-start)/1000))
 		}
 	default:

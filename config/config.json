@@ -1,10 +1,1 @@
-{
-    "ProjectName": "master",
-    "ProjectLang": "C++",
-    "SelectedCompiler": "/usr/bin/gcc",
-    "Compilers": [
-        "/usr/bin/gcc",
-        "/usr/bin/g++",
-        "/usr/bin/cpp"
-    ]
-}
+{"ProjectName":"","ProjectLang":"C++","SelectedCompiler":"","MainFile":"","MainDir":"","Compilers":["/usr/bin/gcc","/usr/bin/g++","/usr/bin/cpp"]}

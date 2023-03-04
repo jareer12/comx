@@ -21,10 +21,22 @@ func main() {
 				Action:  handlers.InitHandle,
 				Flags: []cli.Flag{
 					&cli.StringFlag{
-						Name:  "lang",
-						Usage: "Select project language, '--lang=c' or '--lang=cpp'.",
+						Name:    "main_file",
+						Aliases: []string{"mf"},
+						Usage:   "Name of the file inside the main code directory.",
+					},
+					&cli.StringFlag{
+						Name:    "main_dir",
+						Aliases: []string{"md"},
+						Usage:   "Name of the main code directory.",
 					},
 				},
+			},
+			{
+				Name:    "build",
+				Aliases: []string{"b"},
+				Action:  handlers.BuildHandler,
+				Usage:   "Build the project using a pre-selected compiler",
 			},
 			{
 				Name:    "header",
