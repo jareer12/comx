@@ -18,19 +18,25 @@ const (
 )
 
 func CreateMain(file_ext string, proj_name string, def_code string, proj_lang string, main_file string, main_dir string) error {
-	err := os.Mkdir(fmt.Sprintf("./%v", main_dir), os.ModePerm)
+	cwd, cerr := os.Getwd()
+
+	if cerr != nil {
+		return nil
+	}
+
+	err := os.Mkdir(fmt.Sprintf("%v/%v", cwd, main_dir), os.ModePerm)
 
 	if err != nil {
 		return err
 	}
 
-	cd_err := os.Mkdir("./config", os.ModePerm)
+	cd_err := os.Mkdir(fmt.Sprintf("%v/config", cwd), os.ModePerm)
 
 	if cd_err != nil {
 		return cd_err
 	}
 
-	f_err := os.WriteFile(fmt.Sprintf("./%s/%s", main_dir, main_file), []byte(def_code), os.ModePerm)
+	f_err := os.WriteFile(fmt.Sprintf("%v/%s/%s", cwd, main_dir, main_file), []byte(def_code), os.ModePerm)
 
 	if f_err != nil {
 		return f_err

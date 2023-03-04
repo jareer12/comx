@@ -2,11 +2,12 @@ package utils
 
 import (
 	"encoding/json"
+	"fmt"
 	"os"
 )
 
-const (
-	StorePath = "./config/config.json"
+var (
+	StorePath = fmt.Sprintf("%v/config/config.json", GetWD())
 )
 
 type StoreStruct struct {
@@ -16,6 +17,12 @@ type StoreStruct struct {
 	MainFile         string
 	MainDir          string
 	Compilers        []string
+}
+
+func GetWD() string {
+	wd, _ := os.Getwd()
+
+	return wd
 }
 
 func StoreContents() (StoreStruct, error) {
