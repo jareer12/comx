@@ -11,7 +11,7 @@ func PrintInfo(to_print string) {
 }
 
 func PrintSuccess(to_print string) {
-	fmt.Printf("%v %v\n", color.CyanString("✔"), to_print)
+	fmt.Printf("%v %v\n", color.GreenString("✔"), to_print)
 }
 
 func PrintError(to_print string) {

@@ -38,6 +38,10 @@ func GetStore(bytes []byte) (StoreStruct, error) {
 	return ys, nil
 }
 
+func SetCompiler(compiler string, store *StoreStruct) {
+	store.SelectedCompiler = compiler
+}
+
 func StoreToText(ys StoreStruct) ([]byte, error) {
 	bytes, err := json.Marshal(ys)
 
