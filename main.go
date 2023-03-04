@@ -11,7 +11,7 @@ import (
 
 func main() {
 	app := &cli.App{
-		Name:  "CC-CLI",
+		Name:  "ComX",
 		Usage: "Manage your C/C++ projects with a CLI tool.",
 		Commands: []*cli.Command{
 			{
