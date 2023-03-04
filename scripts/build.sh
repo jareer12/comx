@@ -1,18 +1,15 @@
 NAME=cpm
+DIR=target
 
-if [ ! -d "./target" ]; then
-    mkdir "./target"
+if [ ! -d "./$DIR" ]; then
+    mkdir "./$DIR"
 fi
 
 ## Build For Linux Distro(s)
-set GOOS=linux
-set GOHOSTOS=linux
-go build -o ./target/$NAME-linux64
+set GOOS=linux set GOHOSTOS=linux go build -o ./$DIR/$NAME-linux64
 
-## Build For Linux Distro(s)
-set GOOS=windows
-set GOHOSTOS=windows
-go build -o ./target/$NAME-win64.exe
+## Build For Windows
+set GOOS=windows set GOHOSTOS=windows go build -o ./$DIR/$NAME-win64.exe
 
 ## Build for Mac
-set GOOS=darwin set GOHOSTOS=darwin go build -o ./target/$NAME-mac64
+set GOOS=darwin set GOHOSTOS=darwin go build -o ./$DIR/$NAME-mac64

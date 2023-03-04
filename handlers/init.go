@@ -11,8 +11,8 @@ import (
 )
 
 const (
-	DefaultCode    = "#include <stdio.h>\n\nint main() {\n	return 0;\n}"
-	DefaultCppCode = "#include <iostream>\n\nint main() {\n	 return 0;\n}"
+	DefaultCode    = "#include <stdio.h>\n\nint main() {\n  // ---snip---\n	return 0;\n}"
+	DefaultCppCode = "#include <iostream>\n\nint main() {\n  // ---snip---\n  return 0;\n}"
 )
 
 func CreateMain(file_ext string, def_code string) error {
