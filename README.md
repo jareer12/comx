@@ -1,6 +1,6 @@
 # ComX - A C/C++ Project Manager CLI
 
-ComX is a lightweight and user-friendly command-line interface (CLI) tool for managing C projects. With ComX, you can easily create and configure new projects, manage source code files, and compile your projects with just a few simple commands. Its minimalistic design and ease-of-use make it a great choice for developers who want a simple yet powerful tool for managing their C projects. Save time and streamline your workflow with ComX.
+ComX is a lightweight and user-friendly command-line interface (CLI) tool for managing C/C++ projects. With ComX, you can easily create and configure new projects, manage source code files, and compile your projects with just a few simple commands. Its minimalistic design and ease-of-use make it a great choice for developers who want a simple yet powerful tool for managing their C/C++ projects. Save time and streamline your workflow with ComX.
 
 ## Features
 
