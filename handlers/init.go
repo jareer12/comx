@@ -5,7 +5,7 @@ import (
 	"os"
 	"time"
 
-	"github.com/fatih/color"
+	"cli/utils"
 
 	"github.com/urfave/cli/v2"
 )
@@ -32,7 +32,7 @@ func CreateMain(file_ext string, def_code string) error {
 }
 
 func InitHandle(cCtx *cli.Context) error {
-	proj_lang := cCtx.String("lang")
+	proj_lang := cCtx.Args().Get(0)
 
 	switch proj_lang {
 	case "c":
@@ -43,14 +43,14 @@ func InitHandle(cCtx *cli.Context) error {
 	case "cpp":
 		{
 			start := time.Now().UnixMicro()
-			fmt.Printf(fmt.Sprintf("%v Creating a new C++ project, please wait.\n", color.CyanString("►")))
+			utils.PrintInfo("Creating a new C++ project, please wait.")
 
 			CreateMain(proj_lang, DefaultCppCode)
-			fmt.Printf(fmt.Sprintf("%v Successfuly created new project, elapsed %vms", color.GreenString("✔"), (time.Now().UnixMicro()-start)/1000))
+			utils.PrintSuccess(fmt.Sprintf("Successfuly created project, elapsed %vms.", (time.Now().UnixMicro()-start)/1000))
 		}
 	default:
 		{
-			fmt.Printf(fmt.Sprintf("Selected language '%v' not supported, valid options are: 'c' or 'cpp'\n", proj_lang))
+			utils.PrintError(fmt.Sprintf("Selected language '%v' not supported, valid options are 'c' or 'cpp'\n", proj_lang))
 		}
 	}
 

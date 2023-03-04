@@ -23,13 +23,18 @@ func main() {
 				Usage:   "Setup a new C/C++ project.",
 				Flags: []cli.Flag{
 					&cli.StringFlag{
-						Required: true,
-						Value:    "c",
 						Name:     "lang",
 						Usage:    "Select project language, '--lang=c' or '--lang=cpp'.",
 					},
 				},
 				Action: handlers.InitHandle,
+			},
+			{
+				Name:    "header",
+				Aliases: []string{"h"},
+				Usage:   "Create a new header file for a project.",
+				Flags: []cli.Flag{},
+				Action: handlers.NewHeaderHandler,
 			},
 		},
 	}

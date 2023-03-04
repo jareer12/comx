@@ -1,2 +1,2 @@
-# clang-project-manager
+# C/C++ Project Manager
  
