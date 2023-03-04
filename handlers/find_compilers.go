@@ -19,14 +19,16 @@ func AddCompiler(path string, ys utils.StoreStruct) utils.StoreStruct {
 	return ys
 }
 
-func FindCompilersHandle(_ *cli.Context) error {
+func FindCompilersMain(verbose bool) error {
 	envs := os.Environ()
 	os_name := runtime.GOOS
 
 	for i := 0; i < len(ex_compilers); i++ {
 		for j := 0; j < len(envs); j++ {
 			if strings.Contains(envs[j], ex_compilers[i]) {
-				utils.PrintInfo(fmt.Sprintf("Found compiler in env variables: %v", envs[j]))
+				if verbose {
+					utils.PrintInfo(fmt.Sprintf("Found compiler in env variables: %v", envs[j]))
+				}
 			}
 		}
 
@@ -34,17 +36,23 @@ func FindCompilersHandle(_ *cli.Context) error {
 			dirs, err := os.ReadDir("/usr/bin")
 
 			if err != nil {
-				utils.PrintError("Unable to read /usr/bin directory.")
+				if verbose {
+					utils.PrintError("Unable to read /usr/bin directory.")
+				}
 			}
 
 			for k := 0; k < len(dirs); k++ {
 				if dirs[k].Name() == ex_compilers[i] {
 					comp_path := fmt.Sprintf("/usr/bin/%v", dirs[k].Name())
-					utils.PrintInfo(fmt.Sprintf("Found compiler in bin directory: %v", comp_path))
+					if verbose {
+						utils.PrintInfo(fmt.Sprintf("Found compiler in bin directory: %v", comp_path))
+					}
 
 					if cbytes, err := os.ReadFile(utils.StorePath); err == nil {
 						if store, err := utils.GetStore(cbytes); err != nil {
-							utils.PrintError(fmt.Sprintf("Something went wrong, maybe config file(%v) is corrupted.", utils.StorePath))
+							if verbose {
+								utils.PrintError(fmt.Sprintf("Something went wrong, maybe config file(%v) is corrupted.", utils.StorePath))
+							}
 						} else {
 							if !utils.HasCompiler(comp_path, store) {
 								utils.AddCompiler(comp_path, &store)
@@ -53,7 +61,9 @@ func FindCompilersHandle(_ *cli.Context) error {
 							utils.SaveConfig(store)
 						}
 					} else {
-						utils.PrintError(fmt.Sprintf("Unable to add compiler(%v) to config", comp_path))
+						if verbose {
+							utils.PrintError(fmt.Sprintf("Unable to add compiler(%v) to config", comp_path))
+						}
 					}
 				}
 			}
@@ -61,4 +71,7 @@ func FindCompilersHandle(_ *cli.Context) error {
 	}
 
 	return nil
+}
+func FindCompilersHandle(_ *cli.Context) error {
+	return FindCompilersMain(true)
 }

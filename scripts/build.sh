@@ -1,3 +1,4 @@
+## Variables
 NAME=cpm
 DIR=bin
 LD_FLAGS='-s'

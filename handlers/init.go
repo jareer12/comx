@@ -16,7 +16,7 @@ const (
 	DefaultCppCode = "#include <iostream>\n\nint main() {\n  // ---snip---\n  return 0;\n}"
 )
 
-func CreateMain(file_ext string, def_code string) error {
+func CreateMain(file_ext string, def_code string, proj_lang string) error {
 	err := os.Mkdir("./src", os.ModePerm)
 
 	if err != nil {
@@ -37,7 +37,7 @@ func CreateMain(file_ext string, def_code string) error {
 
 	def_conf, c_err := utils.StoreToText(utils.StoreStruct{
 		Compilers:   []string{},
-		ProjectLang: file_ext,
+		ProjectLang: proj_lang,
 	})
 
 	if c_err != nil {
@@ -82,12 +82,12 @@ func InitHandle(cCtx *cli.Context) error {
 	switch proj_lang {
 	case "c":
 		{
-			CreateMain(proj_lang, DefaultCode)
+			CreateMain(proj_lang, DefaultCode, "C")
 		}
 	case "cpp":
 		{
 			start := time.Now().UnixMicro()
-			CreateMain(proj_lang, DefaultCppCode)
+			CreateMain(proj_lang, DefaultCppCode, "C++")
 			utils.PrintSuccess(fmt.Sprintf("Successfuly created new C++ project, elapsed %vms.", (time.Now().UnixMicro()-start)/1000))
 		}
 	default:
@@ -95,6 +95,8 @@ func InitHandle(cCtx *cli.Context) error {
 			utils.PrintError(fmt.Sprintf("Selected language '%v' not supported, valid options are 'c' or 'cpp'\n", proj_lang))
 		}
 	}
+
+	FindCompilersMain(false)
 
 	return nil
 }
