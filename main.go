@@ -40,7 +40,7 @@ func main() {
 			}, {
 				Name:    "list-compilers",
 				Aliases: []string{"compilers", "lc"},
-				Usage:   "Search your machine for possible GNU compilers.",
+				Usage:   "List all founded compilers.",
 				Action:  handlers.ListCompilers,
 			},
 		},

@@ -1,7 +1,1 @@
-{
-    "Compilers": [
-        "/usr/bin/gcc",
-        "/usr/bin/g++",
-        "/usr/bin/cpp"
-    ]
-}
+{"Compilers":[]}
