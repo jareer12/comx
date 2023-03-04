@@ -1,9 +1,10 @@
 {
+    "ProjectName": "master",
+    "ProjectLang": "C++",
+    "SelectedCompiler": "",
     "Compilers": [
         "/usr/bin/gcc",
         "/usr/bin/g++",
         "/usr/bin/cpp"
-    ],
-    "SelectedCompiler": "",
-    "ProjectLang": "C++"
+    ]
 }

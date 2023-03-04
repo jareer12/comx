@@ -64,6 +64,18 @@ func ProjectExists() bool {
 }
 
 func InitHandle(cCtx *cli.Context) error {
+	if ProjectExists() {
+		config, err := utils.StoreContents()
+
+		if err != nil {
+			utils.PrintError("Prohect seems to be corrupted")
+			return nil
+		}
+
+		utils.PrintError(fmt.Sprintf("A '%v' project already exists in the mentioned directory.", strings.ToUpper(config.ProjectLang)))
+		return nil
+	}
+
 	proj_name := cCtx.Args().Get(0)
 
 	prompt := promptui.Select{
@@ -75,18 +87,6 @@ func InitHandle(cCtx *cli.Context) error {
 
 	if err != nil {
 		utils.PrintError("You did not select a project language properly")
-		return nil
-	}
-
-	if ProjectExists() {
-		config, err := utils.StoreContents()
-
-		if err != nil {
-			utils.PrintError("Prohect seems to be corrupted")
-			return nil
-		}
-
-		utils.PrintError(fmt.Sprintf("A '%v' project already exists in the mentioned directory.", strings.ToUpper(config.ProjectLang)))
 		return nil
 	}
 

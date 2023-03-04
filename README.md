@@ -4,7 +4,8 @@ ComX is a lightweight and user-friendly command-line interface (CLI) tool for ma
 
 ## Features
 
-- Lightweight and easy to use
+- Lightweight
+- Easy to use
 
 ## Installation
 
@@ -19,5 +20,6 @@ ComX is currently available as a standalone binary. To install it on your system
 To create a new C project with ComX, simply run the following command:
 
 ```sh
-comx init <c|cpp>
+## comx init <project-name>
+comx init app
 ```

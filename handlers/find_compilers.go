@@ -16,6 +16,7 @@ var (
 
 func AddCompiler(path string, ys utils.StoreStruct) utils.StoreStruct {
 	ys.Compilers = append(ys.Compilers, path)
+
 	return ys
 }
 
