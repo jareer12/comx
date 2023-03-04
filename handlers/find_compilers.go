@@ -14,7 +14,7 @@ var (
 	ex_compilers = []string{"gcc", "g++", "cpp"}
 )
 
-func AddCompiler(path string, ys utils.YamlStore) utils.YamlStore {
+func AddCompiler(path string, ys utils.StoreStruct) utils.StoreStruct {
 	ys.Compilers = append(ys.Compilers, path)
 	return ys
 }
@@ -40,20 +40,18 @@ func FindCompilersHandle(cCtx *cli.Context) error {
 			for k := 0; k < len(dirs); k++ {
 				if dirs[k].Name() == ex_compilers[i] {
 					comp_path := fmt.Sprintf("/usr/bin/%v", dirs[k].Name())
-					if config, err := os.ReadFile("./config.yaml"); err == nil {
-						ys, d_err := utils.DecodeStore(config)
+					utils.PrintInfo(fmt.Sprintf("Found compiler in bin directory: %v", comp_path))
 
-						if d_err != nil {
-							utils.PrintError("ff")
+					if cbytes, err := os.ReadFile(utils.StorePath); err == nil {
+						if store, err := utils.GetStore(cbytes); err != nil {
+							utils.PrintError(fmt.Sprintf("Something went wrong, maybe config file(%v) is corrupted.", utils.StorePath))
+						} else {
+							if !utils.HasCompiler(comp_path, store) {
+								utils.AddCompiler(comp_path, &store)
+							}
+
+							utils.SaveConfig(store)
 						}
-
-						fmt.Println(ys)
-
-						// new := AddCompiler(comp_path, ys)
-						// utils.SaveConfig(new)
-
-						utils.PrintInfo(fmt.Sprintf("Found compiler in bin directory: %v", comp_path))
-
 					} else {
 						utils.PrintError(fmt.Sprintf("Unable to add compiler(%v) to config", comp_path))
 					}

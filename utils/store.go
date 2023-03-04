@@ -1,38 +1,52 @@
 package utils
 
 import (
+	"encoding/json"
 	"os"
-
-	"gopkg.in/yaml.v2"
 )
 
-type YamlStore struct {
+const (
+	StorePath = "./config/config.json"
+)
+
+type StoreStruct struct {
 	Compilers []string
 }
 
-func DecodeStore(bytes []byte) (YamlStore, error) {
-	var ys YamlStore
-
-	if err := yaml.Unmarshal(bytes, ys); err != nil {
-		return YamlStore{}, err
+func StoreContents() (StoreStruct, error) {
+	if bytes, err := os.ReadFile(StorePath); err != nil {
+		return StoreStruct{}, nil
 	} else {
-		return ys, nil
+		if store, err := GetStore(bytes); err != nil {
+			return StoreStruct{}, err
+		} else {
+			return store, nil
+		}
 	}
-
 }
 
-func EncodeStore(ys YamlStore) (string, error) {
-	bytes, err := yaml.Marshal(ys)
+func GetStore(bytes []byte) (StoreStruct, error) {
+	var ys StoreStruct
+
+	if err := json.Unmarshal(bytes, &ys); err != nil {
+		return StoreStruct{}, err
+	}
+
+	return ys, nil
+}
+
+func StoreToText(ys StoreStruct) ([]byte, error) {
+	bytes, err := json.Marshal(ys)
 
 	if err != nil {
-		return "", err
+		return []byte{}, err
 	}
 
-	return string(bytes), nil
+	return bytes, nil
 }
 
-func SaveConfig(ys YamlStore) error {
-	bytes, err := yaml.Marshal(ys)
+func SaveConfig(ys StoreStruct) error {
+	bytes, err := StoreToText(ys)
 
 	if err != nil {
 		return err
@@ -44,5 +58,19 @@ func SaveConfig(ys YamlStore) error {
 }
 
 func SaveConfigBytes(code []byte) {
-	os.WriteFile("./config.yaml", code, os.ModePerm)
+	os.WriteFile(StorePath, code, os.ModePerm)
+}
+
+func AddCompiler(compiler string, store *StoreStruct) {
+	store.Compilers = append(store.Compilers, compiler)
+}
+
+func HasCompiler(comp string, store StoreStruct) bool {
+	for i := 0; i < len(store.Compilers); i++ {
+		if comp == store.Compilers[i] {
+			return true
+		}
+	}
+
+	return false
 }

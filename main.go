@@ -37,6 +37,11 @@ func main() {
 				Aliases: []string{"fc"},
 				Usage:   "Search your machine for possible GNU compilers.",
 				Action:  handlers.FindCompilersHandle,
+			}, {
+				Name:    "list-compilers",
+				Aliases: []string{"compilers", "lc"},
+				Usage:   "Search your machine for possible GNU compilers.",
+				Action:  handlers.ListCompilers,
 			},
 		},
 	}

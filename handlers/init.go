@@ -22,13 +22,19 @@ func CreateMain(file_ext string, def_code string) error {
 		return err
 	}
 
+	cd_err := os.Mkdir("./config", os.ModePerm)
+
+	if cd_err != nil {
+		return cd_err
+	}
+
 	f_err := os.WriteFile(fmt.Sprintf("./src/main.%v", file_ext), []byte(def_code), os.ModePerm)
 
 	if f_err != nil {
 		return f_err
 	}
 
-	def_conf, c_err := utils.EncodeStore(utils.YamlStore{
+	def_conf, c_err := utils.StoreToText(utils.StoreStruct{
 		Compilers: []string{},
 	})
 
@@ -36,7 +42,7 @@ func CreateMain(file_ext string, def_code string) error {
 		return c_err
 	}
 
-	fc_err := os.WriteFile("./config.yaml", []byte(def_conf), os.ModePerm)
+	fc_err := os.WriteFile(utils.StorePath, []byte(def_conf), os.ModePerm)
 
 	if fc_err != nil {
 		return fc_err
@@ -51,14 +57,11 @@ func InitHandle(cCtx *cli.Context) error {
 	switch proj_lang {
 	case "c":
 		{
-			fmt.Println("Creating new C project, please wait.")
 			CreateMain(proj_lang, DefaultCode)
 		}
 	case "cpp":
 		{
 			start := time.Now().UnixMicro()
-			utils.PrintInfo("Creating a new C++ project, please wait.")
-
 			CreateMain(proj_lang, DefaultCppCode)
 			utils.PrintSuccess(fmt.Sprintf("Successfuly created project, elapsed %vms.", (time.Now().UnixMicro()-start)/1000))
 		}
