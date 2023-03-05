@@ -11,7 +11,7 @@ import (
 )
 
 var (
-	ex_compilers = []string{"gcc", "g++", "cpp"}
+	ex_compilers = []string{"gcc", "g++", "cpp", "cc", "c++", "cpp-11", "clang"}
 )
 
 func AddCompiler(path string, ys utils.StoreStruct) utils.StoreStruct {
@@ -43,8 +43,10 @@ func FindCompilersMain(verbose bool) error {
 			}
 
 			for k := 0; k < len(dirs); k++ {
-				if dirs[k].Name() == ex_compilers[i] {
-					comp_path := fmt.Sprintf("/usr/bin/%v", dirs[k].Name())
+				dir := dirs[k]
+
+				if dir.Name() == ex_compilers[i] && !dir.IsDir() {
+					comp_path := fmt.Sprintf("/usr/bin/%v", dir.Name())
 					if verbose {
 						utils.PrintInfo(fmt.Sprintf("Found compiler in bin directory: %v", comp_path))
 					}
