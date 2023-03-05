@@ -6,7 +6,12 @@ import (
 	"os"
 	"strings"
 
+	"github.com/manifoldco/promptui"
 	"github.com/urfave/cli/v2"
+)
+
+var (
+	header_exts = []string{"h", "hh", "cc", "hpp", "hxx"}
 )
 
 func NewHeaderHandler(cCtx *cli.Context) error {
@@ -25,9 +30,23 @@ func NewHeaderHandler(cCtx *cli.Context) error {
 	file_name := cCtx.Args().Get(0)
 	if len(file_name) > 0 {
 		module_name := strings.ToUpper(strings.Split(file_name, ".")[0])
+
+		prompt := promptui.Select{
+			Label:        "Select the compiler you want to use",
+			Items:        header_exts,
+			HideSelected: true,
+		}
+
+		_, extension, err := prompt.Run()
+
+		if err != nil {
+			utils.PrintError("You did not select a proper compiler")
+			return nil
+		}
+
 		os.WriteFile(
-			fmt.Sprintf("%v/%v/%v.h", cwd, store.MainDir, file_name),
-			[]byte(fmt.Sprintf("#ifndef %v\n\n#define %v\n// ---snip---\n#endif",
+			fmt.Sprintf("%v/%v/%v.%v", cwd, store.MainDir, file_name, extension),
+			[]byte(fmt.Sprintf("#ifndef HEADER_%v\n\n#define HEADER_%v\n// ---snip---\n#endif",
 				module_name,
 				module_name),
 			),

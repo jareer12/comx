@@ -29,7 +29,6 @@ func SelectCompilerHandle(cCtx *cli.Context) error {
 
 	utils.SetCompiler(compiler, &store)
 	utils.SaveConfig(store)
-
 	utils.PrintSuccess(fmt.Sprintf("Selected compiler: %v", compiler))
 
 	return nil
