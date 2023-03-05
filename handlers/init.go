@@ -125,7 +125,9 @@ func InitHandle(cCtx *cli.Context) error {
 		{
 			start := time.Now().UnixMicro()
 			CreateMain(proj_lang, proj_name, DefaultCppCode, "C++", main_file, main_dir)
-			utils.PrintSuccess(fmt.Sprintf("Successfuly created new C++ project, elapsed %vms.", (time.Now().UnixMicro()-start)/1000))
+
+			elapsed := float64(time.Now().UnixMicro()-start) / 1000
+			utils.PrintSuccess(fmt.Sprintf("Successfuly created new C++ project, elapsed %vms.", elapsed))
 		}
 	default:
 		{
