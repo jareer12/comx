@@ -39,16 +39,20 @@ func FindCompilersMain(verbose bool) error {
 		for j := 0; j < len(envs); j++ {
 			if os_name == "win" || os_name == "windows" {
 				if MatchWinCompilers(envs[j]) {
-					if read_bin, err := os.ReadDir(envs[j]); err != nil {
-						utils.PrintError("Read dir error")
+					path := envs[j]
+					if read_bin, err := os.ReadDir(path); err != nil {
+						utils.PrintError(fmt.Sprintf("Error reading the following directory: %v", path))
 						fmt.Println(err)
 					} else {
 						for r := 0; r < len(read_bin); r++ {
 							pc := read_bin[r]
+
 							for e := 0; e < len(ex_compilers); e++ {
 								ec := ex_compilers[e]
-								if strings.Contains(pc.Name(), ec) && !pc.IsDir() && strings.HasSuffix(pc.Name(), "exe") {
-									utils.PrintInfo(fmt.Sprintf("Found compiler from: %v, compiler: %v", envs[j], pc))
+								pn := pc.Name()
+
+								if strings.Contains(pn, ec) && !pc.IsDir() && strings.HasSuffix(pn, "exe") {
+									utils.PrintInfo(fmt.Sprintf("Found compiler from: %v, compiler: %v", path, pc))
 								}
 							}
 						}
