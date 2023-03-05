@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include "./module.c"
 
 int main()
 {
