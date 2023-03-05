@@ -49,7 +49,7 @@ func BuildHandler(cCtx *cli.Context) error {
 		}
 
 		build_path := fmt.Sprintf("%v/%s/%s", cwd, main_dir, main_file)
-		utils.PrintSuccess(fmt.Sprintf("Building using command: %v %v", compiler, build_path))
+		utils.PrintInfo(fmt.Sprintf("Building using command: %v %v, If build doesn't succeed please select a different compiler using the 'select-compiler' command.", compiler, build_path))
 
 		cmd := exec.Command(compiler, build_path)
 		err := cmd.Run()
@@ -57,6 +57,8 @@ func BuildHandler(cCtx *cli.Context) error {
 		if err != nil {
 			log.Fatal(err)
 		}
+
+		utils.PrintSuccess("Build Succeeded")
 	}
 
 	return nil

@@ -37,6 +37,18 @@ func main() {
 				Aliases: []string{"b"},
 				Action:  handlers.BuildHandler,
 				Usage:   "Build the project using a pre-selected compiler",
+				Flags: []cli.Flag{
+					&cli.StringFlag{
+						Name:    "args",
+						Aliases: []string{"a"},
+						Usage:   "Pass custom arguments to the compiler.",
+					},
+					&cli.StringFlag{
+						Name:    "output",
+						Aliases: []string{"o"},
+						Usage:   "Output file location.",
+					},
+				},
 			},
 			{
 				Name:    "header",
