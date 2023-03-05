@@ -20,7 +20,12 @@ type StoreStruct struct {
 }
 
 func GetWD() string {
-	wd, _ := os.Getwd()
+	wd, err := os.Getwd()
+
+	if err != nil {
+		println(err)
+		PrintError("Unable to get current working directory")
+	}
 
 	return wd
 }

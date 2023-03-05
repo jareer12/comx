@@ -17,19 +17,13 @@ if [ ! -d "./$FULLDIR" ]; then
 fi
 
 ## Build For Windows
-set GOOS=windows
-set GOHOSTOS=windows
-go build -o ./$FULLDIR/$NAME-win64-portable.exe -ldflags="$LD_FLAGS"
+GOOS=windows GOHOSTOS=windows go build -o ./$FULLDIR/$NAME-win64-portable.exe -ldflags="$LD_FLAGS"
 upx ./$FULLDIR/$NAME-win64-portable.exe $UPX_CMDS
 
 ## Build For Linux Distro(s)
-set GOOS=linux
-set GOHOSTOS=linux
-go build -o ./$FULLDIR/$NAME-linux64-portable -ldflags="$LD_FLAGS"
+GOOS=linux GOHOSTOS=linux go build -o ./$FULLDIR/$NAME-linux64-portable -ldflags="$LD_FLAGS"
 upx ./$FULLDIR/$NAME-linux64-portable $UPX_CMDS
 
 ## Build for Mac
-set GOOS=darwin
-setGOHOSTOS=darwin
-go build -o ./$FULLDIR/$NAME-mac64-portable -ldflags="$LD_FLAGS"
+GOOS=darwin GOHOSTOS=darwin go build -o ./$FULLDIR/$NAME-mac64-portable -ldflags="$LD_FLAGS"
 upx ./$FULLDIR/$NAME-mac64-portable $UPX_CMDS
