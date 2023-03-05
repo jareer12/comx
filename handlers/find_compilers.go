@@ -11,7 +11,8 @@ import (
 )
 
 var (
-	ex_compilers = []string{"gcc", "g++", "cpp", "cc", "c++", "cpp-11", "clang"}
+	ex_compilers   = []string{"gcc", "g++", "cpp", "cc", "c++", "cpp-11", "clang"}
+	win_comps_locs = []string{"mingw"}
 )
 
 func AddCompiler(path string, ys utils.StoreStruct) utils.StoreStruct {
@@ -20,12 +21,41 @@ func AddCompiler(path string, ys utils.StoreStruct) utils.StoreStruct {
 	return ys
 }
 
+func MatchWinCompilers(path string) bool {
+	for i := 0; i < len(win_comps_locs); i++ {
+		if strings.Contains(path, win_comps_locs[i]) {
+			return true
+		}
+	}
+
+	return false
+}
+
 func FindCompilersMain(verbose bool) error {
 	envs := os.Environ()
 	os_name := runtime.GOOS
 
 	for i := 0; i < len(ex_compilers); i++ {
 		for j := 0; j < len(envs); j++ {
+			if os_name == "win" || os_name == "windows" {
+				if MatchWinCompilers(envs[j]) {
+					if read_bin, err := os.ReadDir(envs[j]); err != nil {
+						utils.PrintError("Read dir error")
+						fmt.Println(err)
+					} else {
+						for r := 0; r < len(read_bin); r++ {
+							pc := read_bin[r]
+							for e := 0; e < len(ex_compilers); e++ {
+								ec := ex_compilers[e]
+								if strings.Contains(pc.Name(), ec) && !pc.IsDir() && strings.HasSuffix(pc.Name(), "exe") {
+									utils.PrintInfo(fmt.Sprintf("Found compiler from: %v, compiler: %v", envs[j], pc))
+								}
+							}
+						}
+					}
+				}
+			}
+
 			if strings.Contains(envs[j], ex_compilers[i]) {
 				if verbose {
 					utils.PrintInfo(fmt.Sprintf("Found compiler in env variables: %v", envs[j]))
