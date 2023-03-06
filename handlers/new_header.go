@@ -47,7 +47,7 @@ func NewHeaderHandler(cCtx *cli.Context) error {
 		module_name := strings.ToUpper(strings.Split(file_name, ".")[0])
 
 		prompt := promptui.Select{
-			Label:        "Select the module extension.",
+			Label:        "Select module extension.",
 			Items:        header_exts,
 			HideSelected: true,
 		}
