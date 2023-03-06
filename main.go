@@ -51,6 +51,12 @@ func main() {
 				},
 			},
 			{
+				Name:    "version",
+				Action:  handlers.VersionHandle,
+				Aliases: []string{"v"},
+				Usage:   "Print CLI version.",
+			},
+			{
 				Name:    "header",
 				Aliases: []string{"h"},
 				Action:  handlers.NewHeaderHandler,
