@@ -24,3 +24,4 @@ go.work
 /bin
 /config
 /src
+/modules

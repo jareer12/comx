@@ -16,6 +16,7 @@ type StoreStruct struct {
 	SelectedCompiler string
 	MainFile         string
 	MainDir          string
+	ModulesDir       string
 	Compilers        []string
 }
 

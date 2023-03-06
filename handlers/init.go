@@ -17,7 +17,7 @@ const (
 	DefaultCppCode = "#include <iostream>\n\nint main() {\n  // ---snip---\n  return 0;\n}"
 )
 
-func CreateMain(file_ext string, proj_name string, def_code string, proj_lang string, main_file string, main_dir string) error {
+func CreateMain(file_ext string, proj_name string, def_code string, proj_lang string, main_file string, main_dir string, mod_dir string) error {
 	cwd, cerr := os.Getwd()
 
 	if cerr != nil {
@@ -48,6 +48,7 @@ func CreateMain(file_ext string, proj_name string, def_code string, proj_lang st
 		ProjectName: proj_name,
 		MainFile:    main_file,
 		MainDir:     main_dir,
+		ModulesDir:  mod_dir,
 	})
 
 	if c_err != nil {
@@ -85,6 +86,7 @@ func InitHandle(cCtx *cli.Context) error {
 	}
 
 	var main_file string
+	var mod_dir string
 	var main_dir string
 
 	proj_name := cCtx.Args().Get(0)
@@ -102,6 +104,7 @@ func InitHandle(cCtx *cli.Context) error {
 	}
 
 	mf := cCtx.String("main_file")
+	mod := cCtx.String("mod_dir")
 	md := cCtx.String("main_dir")
 
 	if len(mf) > 0 {
@@ -116,15 +119,21 @@ func InitHandle(cCtx *cli.Context) error {
 		main_dir = "src"
 	}
 
+	if len(mod) > 0 {
+		mod_dir = mod
+	} else {
+		mod_dir = "modules"
+	}
+
 	switch proj_lang {
 	case "c":
 		{
-			CreateMain(proj_lang, proj_name, DefaultCode, "C", main_file, main_dir)
+			CreateMain(proj_lang, proj_name, DefaultCode, "C", main_file, main_dir, mod_dir)
 		}
 	case "cpp":
 		{
 			start := time.Now().UnixMicro()
-			CreateMain(proj_lang, proj_name, DefaultCppCode, "C++", main_file, main_dir)
+			CreateMain(proj_lang, proj_name, DefaultCppCode, "C++", main_file, main_dir, mod_dir)
 
 			elapsed := float64(time.Now().UnixMicro()-start) / 1000
 			utils.PrintSuccess(fmt.Sprintf("Successfuly created new C++ project, elapsed %vms.", elapsed))
