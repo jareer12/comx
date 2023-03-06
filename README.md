@@ -6,14 +6,20 @@ ComX is a lightweight and user-friendly command-line interface (CLI) tool for ma
 
 - Lightweight
 - Easy to use
+- Portable
 
 ## Installation
 
 ComX is currently available as a standalone binary. To install it on your system, follow these steps:
 
+### Windows
+
 1. Download the latest release from the [GitHub repository](https://github.com/jareer12/comx/releases).
 2. Extract the binary file from the downloaded archive.
 3. Copy the binary to a location in your system's PATH, such as `/usr/local/bin`. Rename it to `comx` for convenient use.
+
+### Linux
+
 
 ## Usage
 
