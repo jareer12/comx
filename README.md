@@ -20,6 +20,7 @@ ComX is currently available as a standalone binary. To install it on your system
 
 ### Linux
 
+Run the following script in your terminal.
 
 ## Usage
 
