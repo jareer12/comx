@@ -18,7 +18,7 @@ func AddIncludeToFile(file_path string, include_path string) error {
 	if bytes, err := os.ReadFile(file_path); err != nil {
 		return err
 	} else {
-		or := fmt.Sprintf("#include <%v>\n%v", include_path, string(bytes))
+		or := fmt.Sprintf(`#include "%v"%v%v`, include_path, "\n", string(bytes))
 		err := os.WriteFile(file_path, []byte(or), os.ModePerm)
 
 		if err != nil {

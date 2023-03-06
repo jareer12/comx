@@ -60,11 +60,11 @@ func FindCompilersMain(verbose bool) error {
 				}
 			}
 
-			if strings.Contains(envs[j], ex_compilers[i]) {
-				if verbose {
-					utils.PrintInfo(fmt.Sprintf("Found compiler in env variables: %v", envs[j]))
-				}
-			}
+			// if strings.Contains(envs[j], ex_compilers[i]) {
+			// 	if verbose {
+			// 		utils.PrintInfo(fmt.Sprintf("Found compiler in env variables: %v", envs[j]))
+			// 	}
+			// }
 		}
 
 		if os_name == "linux" {
