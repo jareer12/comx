@@ -22,9 +22,15 @@ ComX is currently available as a standalone binary. To install it on your system
 
 Run the following script in your terminal.
 
+```sh
+bash https://raw.githubusercontent.com/jareer12/comx/main/install.sh
+```
+
 ## Usage
 
 To create a new C project with ComX, simply run the following command:
+
+### Create New Project
 
 ```sh
 ## comx init <project-name>
@@ -37,7 +43,6 @@ comx init app
 ## comx build -o ./binary [--args]
 comx build
 ```
-
 
 ## Building From Source
 
