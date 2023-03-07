@@ -90,6 +90,12 @@ func InitHandle(cCtx *cli.Context) error {
 	var main_dir string
 
 	proj_name := cCtx.Args().Get(0)
+
+	if len(proj_name) == 0 || proj_name == " " {
+		utils.PrintError("Provide a valid project name 'example init <project-name>'")
+		return nil
+	}
+
 	prompt := promptui.Select{
 		Label:        "Please select project base language",
 		Items:        []string{"cpp", "c"},

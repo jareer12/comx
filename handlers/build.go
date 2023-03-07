@@ -3,7 +3,6 @@ package handlers
 import (
 	"cli/utils"
 	"fmt"
-	"log"
 	"os"
 	"os/exec"
 
@@ -34,6 +33,13 @@ func BuildHandler(cCtx *cli.Context) error {
 			main_dir = store.MainDir
 		}
 
+		output := cCtx.String("output")
+
+		if len(output) == 0 || output == " " {
+			utils.PrintError("Please enter a valid output path using the '--output' argument.")
+			return nil
+		}
+
 		compiler := store.SelectedCompiler
 
 		if !(len(compiler) > 0) {
@@ -49,13 +55,19 @@ func BuildHandler(cCtx *cli.Context) error {
 		}
 
 		build_path := fmt.Sprintf("%v/%s/%s", cwd, main_dir, main_file)
-		utils.PrintInfo(fmt.Sprintf("Building using command: %v %v, If build doesn't succeed please select a different compiler using the 'select-compiler' command.", compiler, build_path))
+		out_path := fmt.Sprintf("%v/%v", cwd, output)
 
-		cmd := exec.Command(compiler, build_path)
-		err := cmd.Run()
+		utils.PrintInfo(fmt.Sprintf(`Building using command: %v %v %v`, compiler, build_path, out_path))
+		utils.PrintInfo("If build doesn't succeed, select a different compiler using the 'select-compiler' command.")
+
+		cmd := exec.Command(compiler, build_path, "-o", out_path)
+		outp, err := cmd.CombinedOutput()
 
 		if err != nil {
-			log.Fatal(err)
+			fmt.Println(fmt.Sprint(err) + ": " + string(outp))
+			return nil
+		} else {
+			println(string(outp))
 		}
 
 		utils.PrintSuccess("Build Succeeded")
